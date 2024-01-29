@@ -35,6 +35,7 @@ Update() {
 }
 
 SetupMY(){
+        cp  .bashrc  .bashrc.backup
         echo '# Fetch a quote and display it upon SSH login' >> /root/.bashrc
         echo 'fetch_quote() {' >> /root/.bashrc
         echo '    local quote=$(curl -s "https://api.vvhan.com/api/ian")' >> /root/.bashrc
