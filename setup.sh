@@ -53,6 +53,8 @@ SetupMY(){
         echo '}' >> /root/.bashrc
         echo '' >> /root/.bashrc
         echo 'fetch_quote' >> /root/.bashrc
+        echo "完成欢迎词设置，效果如下："
+        source ~/.bashrc
 }
 Main() {
     echo "请选择要执行的操作："
