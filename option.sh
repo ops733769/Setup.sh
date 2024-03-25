@@ -2,8 +2,10 @@
 # 获取系统基础信息并保存到日志文件
 {
     echo "=== 当前巡检时间 ==="   
+    date
+    echo -e "\n=== 当前时钟信息 ==="
     timedatectl
-    echo "=== 操作系统版本 ==="
+    echo -e "\n=== 操作系统版本 ==="
     cat /etc/os-release
     echo -e "\n=== 内核版本 ==="
     uname -a
