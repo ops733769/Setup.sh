@@ -38,7 +38,7 @@ SetupMY(){
         cp  .bashrc  .bashrc.backup
         echo '# Fetch a quote and display it upon SSH login' >> /root/.bashrc
         echo 'fetch_quote() {' >> /root/.bashrc
-        echo '    local quote=$(curl -s "https://api.vvhan.com/api/ian")' >> /root/.bashrc
+        echo '    local quote=$(curl -s "https://api.vvhan.com/api/ian/rand")' >> /root/.bashrc
         echo '    local colors=(31 32 33 34 35 36)' >> /root/.bashrc
         echo '    local random_color=${colors[$RANDOM % ${#colors[@]}]}' >> /root/.bashrc
         echo '' >> /root/.bashrc
