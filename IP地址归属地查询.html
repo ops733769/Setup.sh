@@ -1,0 +1,76 @@
+<!-- 直接下载保存到本地双击html文件打开即可食用 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP地址归属地查询</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app" style="text-align: center; width: 65%; margin: 0 auto;">
+        <h1>IP地址归属地查询</h1>
+
+        <!-- 输入框 -->
+        <textarea v-model="ipAddresses" placeholder="请输入多个IP地址（换行、空格、逗号或分号隔开）" style="margin-top: 20px;center; width: 65%; margin: 0 auto;width: 572px;
+    height: 187px;"></textarea>
+		<br>
+		</br>
+        <!-- 提交按钮 -->
+        <button @click="queryIpAddresses">提交</button>
+
+        <!-- 查询结果表格 -->
+        <table border="1" style="margin-top: 20px;center; width: 65%; margin: 0 auto;">
+            <thead>
+                <tr>
+                    <th>查询时间</th>
+                    <th>IP地址</th>
+                    <th>归属地</th>
+                </tr>
+            </thead>
+            <tbody v-for="(result, index) in results" :key="'result-' + index">
+                <!-- 只显示第一条记录的详细信息 -->
+                <tr :key="'address-' + result.ip">
+                    <td>{{ result.queryTime }}</td>
+                    <td>{{ result.ip }}</td>
+
+                    <!-- 将 disp 字段显示到归属地列 -->
+                    <td>{{ result.result.disp }}</td> 
+                </tr>   
+            </tbody>        
+        </table>
+
+    </div>
+
+    <!-- Vue 实例 -->
+    <script type='text/javascript'>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    ipAddresses: '',
+                    results: []
+                };
+            },
+            methods: {
+                async queryIpAddresses() {
+                    const ips = this.ipAddresses.split(/[\n\s,;]/).filter(ip => ip.trim() !== '');
+
+                    
+                    for (const ip of ips) {
+                        const response = await axios.get(`https://api.oioweb.cn/api/ip/ipaddress?ip=${ip}`);
+                        this.results.push({
+                            queryTime: new Date().toLocaleString(),
+                            ip,
+                            result: response.data.result
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+
